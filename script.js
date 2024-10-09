@@ -10,7 +10,7 @@ function reset() {
 
 function calculate() {
     try {
-        displayMain.value=eval(displayMain.value);
+        displayMain.value=eval(displayMain.value).toFixed(2);
     }
 
     catch(error) {
