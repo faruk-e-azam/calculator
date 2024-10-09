@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Calculator app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+      :root {
+        --background--color: #3b4664;
+        --input--background: #181f32;
+        --button--background: #eae3db;
+        --reset--background: #a2b3e1;
+        --equal--background: #f96c5b;
+        --button--main: #252c46;
+        --text--color: #494c58;
+        --white--color: #fff;
+      }
+      .white--theme {
+        --background--color: #e6e6e6;
+        --input--background: #fff;
+        --button--background: #e5e4e0;
+        --reset--background: #62b5bd;
+        --equal--background: #ff8b38;
+        --button--main: #d3cdcd;
+        --text--color: #494c58;
+        --white--color: #3b3b32;
+      }
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: Poppins;
+      }
+
+      .main--container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: var(--background--color);
+      }
+
+      .page--width {
+        width: 600px;
+      }
+      .theme--main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .theme--change--main {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .theme--change {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      #label {
+        width: 60px;
+        background-color: var(--button--main);
+        height: 30px;
+        border-radius: 50px;
+        display: inline-block;
+        position: relative;
+      }
+      #label::after {
+        position: absolute;
+        content: "";
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: var(--white--color);
+        border: none;
+        left: 5px;
+        top: 5px;
+        transition: 0.3s;
+        background-color: var(--equal--background);
+      }
+      #check:checked + #label::after {
+        transform: translateX(30px);
+      }
+      #check {
+        display: none;
+      }
+      #display {
+        width: 100%;
+        background-color: var(--input--background);
+        border: none;
+        padding: 50px;
+        border-radius: 20px;
+        text-align: right;
+        font-size: 52px;
+        color: var(--white--color);
+        font-weight: bolder;
+        margin-top: 50px;
+      }
+      #display::-webkit-outer-spin-button,
+      #display::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+      .number--main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 10px;
+      }
+      .theme--main {
+        color: var(--white--color);
+      }
+      .key-word {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 50px;
+        background-color: var(--button--main);
+        padding: 50px;
+        border-radius: 20px;
+      }
+      .key-word button {
+        font-size: 32px;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        width: 100%;
+        margin: 0 auto;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .reset {
+        grid-column: span 2;
+        background-color: var(--reset--background);
+        color: var(--white--color);
+      }
+      .equal {
+        grid-column: span 2;
+        background-color: var(--equal--background);
+        color: var(--white--color);
+      }
+      .delete--btn {
+        background-color: var(--reset--background);
+        color: var(--white--color);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main--container">
+      <div class="page--width">
+        <div class="calculator--main">
+          <div class="theme--main">
+            <h1 class="cacl">calc</h1>
+            <div class="theme--change--main">
+              <p class="name">THEME</p>
+              <div class="theme--change">
+                <div class="number--main">
+                  <span class="number">1</span>
+                  <span class="number">2</span>
+                </div>
+                <div class="change--btn">
+                  <input type="checkbox" id="check" />
+                  <label for="check" id="label"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="display--main">
+            <input id="display" readonly />
+
+            <div class="key-word">
+              <button
+                onclick="numberDisplay('7')"
+                class="calculate-number"
+                value="7"
+              >
+                7
+              </button>
+              <button
+                onclick="numberDisplay('8')"
+                class="calculate-number"
+                value="8"
+              >
+                8
+              </button>
+              <button
+                onclick="numberDisplay('9')"
+                class="calculate-number"
+                value="9"
+              >
+                9
+              </button>
+              <button onclick="clearBtn()" class="delete--btn">DEL</button>
+              <button
+                onclick="numberDisplay('4')"
+                class="calculate-number"
+                value="4"
+              >
+                4
+              </button>
+              <button
+                onclick="numberDisplay('5')"
+                class="calculate-number"
+                value="5"
+              >
+                5
+              </button>
+              <button
+                onclick="numberDisplay('6')"
+                class="calculate-number"
+                value="6"
+              >
+                6
+              </button>
+              <button
+                onclick="numberDisplay('+')"
+                class="calculate-number"
+                value="+"
+              >
+                +
+              </button>
+              <button
+                onclick="numberDisplay('1')"
+                class="calculate-number"
+                value="1"
+              >
+                1
+              </button>
+              <button
+                onclick="numberDisplay('2')"
+                class="calculate-number"
+                value="2"
+              >
+                2
+              </button>
+              <button
+                onclick="numberDisplay('3')"
+                class="calculate-number"
+                value="3"
+              >
+                3
+              </button>
+              <button
+                onclick="numberDisplay('-')"
+                class="calculate-number"
+                vaku
+                -
+              >
+                -
+              </button>
+              <button
+                onclick="numberDisplay('.')"
+                class="calculate-number"
+                value="."
+              >
+                .
+              </button>
+              <button
+                onclick="numberDisplay('0')"
+                class="calculate-number"
+                value="0"
+              >
+                0
+              </button>
+              <button
+                onclick="numberDisplay('/')"
+                class="calculate-number"
+                value="/"
+              >
+                /
+              </button>
+              <button
+                onclick="numberDisplay('*')"
+                class="calculate-number"
+                value="*"
+              >
+                *
+              </button>
+              <button onclick="reset()" class="reset">RESET</button>
+              <button onclick="calculate()" class="equal">=</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Your Name Here</a>.
+    </div> -->
+    <script src="script.js"></script>
+  </body>
+</html>
